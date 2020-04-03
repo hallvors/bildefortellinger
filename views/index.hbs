@@ -1,0 +1,15 @@
+
+<div class="siema">
+{{#each images}}
+	<div class="slide">
+		<img src="{{this}}" />
+	</div>
+{{else}}
+	<p>Hei{{#if name}} {{name}}{{/if}}! Vi fant ingen bilder å fortelle om. Kan du be om lenke til bildene på nytt?</p>
+{{/each}}
+</div>
+{{#if name}}
+<input type="hidden" value="{{name}}" id="name">
+<script>var pupilName = document.getElementById('name').value;</script>
+{{/if}}
+<nav id="toolbar"></nav>
