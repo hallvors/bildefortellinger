@@ -1,5 +1,5 @@
 
-var slideshow = new Siema({startIndex: 1});
+var slideshow = new Siema();
 
 function next() {
 	slideshow.next();
