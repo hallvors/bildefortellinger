@@ -26,3 +26,8 @@ img {
 #toolbar button {
 	font-size: 3em;
 }
+
+.error {
+	font-size: 4em;
+	color: #fff;
+}

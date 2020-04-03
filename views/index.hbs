@@ -5,7 +5,7 @@
 		<img src="{{this}}" />
 	</div>
 {{else}}
-	<p>Hei{{#if name}} {{name}}{{/if}}! Vi fant ingen bilder å fortelle om. Kan du be om lenke til bildene på nytt?</p>
+	<p class="error">Hei{{#if name}} {{name}}{{/if}}! Vi fant ingen bilder å fortelle om. Kan du be om lenke til bildene på nytt?</p>
 {{/each}}
 </div>
 {{#if name}}
