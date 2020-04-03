@@ -17,10 +17,17 @@ const handler = upload.single('mp3');
 app.use('/images', express.static('public/images'));
 app.use('/js', express.static('public/js'));
 app.use('/css', express.static('public/css'));
+app.use('/sound', express.static('public/sound'));
 app.post('/api/submit', handler, function(req, res, next) {
 	let name = req.get('x-bildefortellinger-name') || 'opptak' + parseInt(Math.random() * 100);
-	console.log(req.file)
-	fs.renameSync(req.file.path, './submits/' + name + '.mp3');
+	let count = 1;
+	let newPath = `./submits/${ name }-${ count }.mp3`;
+	while(fs.existsSync(newPath)) {
+		count++;
+		newPath = `./submits/${ name }-${ count }.mp3`;
+	}
+	console.log(req.file, newPath)
+	fs.renameSync(req.file.path, newPath);
 	res.statusCode = 204;
 	res.end();
 });

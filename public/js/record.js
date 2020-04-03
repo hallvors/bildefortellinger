@@ -1,8 +1,13 @@
+// uses global variable slideshow from slideshow.js
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var recorder, input, theStream;
 
 function start() {
+	if (slideshow.currentSlide !== 0 && !recorder) {
+		// let's make sure they start first recording looking at first picture..
+		slideshow.goTo(0);
+	}
 	navigator.mediaDevices.getUserMedia({audio: true}).then(function(stream) {
 		theStream = stream;
 		var audioContext = new AudioContext();
@@ -17,7 +22,7 @@ function start() {
 			if (typeof pupilName !== 'undefined') {
 				xhr.setRequestHeader('X-bildefortellinger-name', pupilName)
 			}
-			xhr.onload = function() { alert('Ferdig!'); }
+			xhr.onload = function() { alert('Ferdig! Tusen takk :)'); }
 			var fd = new FormData();
 			fd.append('mp3', blob, 'opptak.mp3');
 			xhr.send(fd);
@@ -42,7 +47,7 @@ function stop() {
 }
 
 function toggle(e) {
-	if (recorder && recorder.isRecording) {
+	if (recorder && recorder.isRecording()) {
 		stop();
 		e.target.textContent = ' 🔴 ';
 	} else {
