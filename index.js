@@ -41,10 +41,10 @@ app.get('/:picturefolder?/:name?', function(req, res, next) {
 
 const server = require('http').createServer();
 server.on('request', app);
-server.listen(process.env.port, (err, ok) => {
+server.listen(process.env.PORT, (err, ok) => {
 	if (err) {
 		  console.error(err.stack);
 		  process.exit(1);
 	}
-	console.log(`[ready] http://localhost:${process.env.port}`);
+	console.log(`[ready] http://localhost:${process.env.PORT}`);
 });

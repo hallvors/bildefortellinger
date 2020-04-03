@@ -4,6 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/hallvors/bildefortellinger",
   "author": "<hallvord@hallvord.com>",
+  "scripts": {
+    "start": "node index.js"
+  },
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
