@@ -46,6 +46,7 @@ app.get('/:picturefolder?/:name?', function(req, res, next) {
 	res.render('index', {images, name: req.params.name});
 });
 
+
 const server = require('http').createServer();
 server.on('request', app);
 server.listen(process.env.PORT, (err, ok) => {
