@@ -8,7 +8,7 @@ function previous() {
 	slideshow.prev();
 }
 
-addEventListener('load', function(e) {
+addEventListener('DOMContentLoaded', function(e) {
 	var btn = document.createElement('button');
 	document.getElementById('toolbar').appendChild(btn);
 	btn.onclick = previous;

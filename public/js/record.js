@@ -56,7 +56,7 @@ function toggle(e) {
 	}
 }
 
-addEventListener('load', function(){
+addEventListener('DOMContentLoaded', function(){
 	var btn = document.createElement('button');
 	document.getElementById('toolbar').appendChild(btn);
 	btn.onclick = toggle;
