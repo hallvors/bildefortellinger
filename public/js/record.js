@@ -2,6 +2,7 @@
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var recorder, input, theStream;
+var pupilName, project;
 
 function start() {
 	if (slideshow.currentSlide !== 0 && !recorder) {
@@ -17,10 +18,16 @@ function start() {
 			encoding: 'mp3',
 		});
 		recorder.onComplete = function(recorder, blob) {
+			var pupilName = document.getElementById('name').value;
+			var project = document.getElementById('project').value;
+
 			var xhr = new XMLHttpRequest();
 			xhr.open('post', '/api/submit', true);
-			if (typeof pupilName !== 'undefined') {
+			if (pupilName) {
 				xhr.setRequestHeader('X-bildefortellinger-name', pupilName)
+			}
+			if (project) {
+				xhr.setRequestHeader('X-bildefortellinger-project', project)
 			}
 			xhr.onload = function() { alert('Ferdig! Tusen takk :)'); }
 			var fd = new FormData();
