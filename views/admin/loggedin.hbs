@@ -1,0 +1,19 @@
+<style>
+form {
+	display: flex;
+}
+form>* {
+	flex-basis: 50%;
+}
+</style>
+<h1>Registrer prosjekt</h1>
+<form method="post">
+	<span>Navn på prosjektet:</span>
+	<input 
+		name="project_name" 
+		placeholder="Ett ord uten mellomrom og tegn"
+		required
+		pattern="[^ .,?! #$']" 
+	>
+
+</form>

@@ -1,0 +1,83 @@
+{{#if user}}
+<h1>
+	Velkommen, {{#if user.friendly_name}}{{user.friendly_name}}{{else}}{{user.name}}{{/if}}
+</h1>
+
+{{#if project}}
+	<h2>Prosjekt: {{project.name}}</h2>
+	<div class="admin-images">
+		{{#each project.images}}
+				<span><img src="{{asset.url}}?w=100&fit=max"></span>
+		{{/each}}
+
+		<form method="post" action="/admin/image" enctype="multipart/form-data">
+			Nytt bilde<br>(NB: bør lastes opp i riktig rekkefølge): 
+			<br>
+			<input type="file" name="image" onchange="this.form.submit()">
+			<input type="hidden" name="project" value="{{project.name}}">
+		</form>
+	</div>
+	<span class="clearfix"></span>
+	<h3>Hjelpelydfil</h3>
+	{{#if project.helprecording}}
+		<form method="post" action="/admin">
+			<audio
+				controls
+				src="{{project.helprecording.asset.url}}">
+					<code>audio</code> element støttes ikke.
+			</audio>
+			<button type="submit" name="delete_recording" value="{{project.helprecording.asset._id}}" class="icon"> 🗑️ </button>
+			<input type="hidden" name="project" value="{{project.name}}">
+		</form>
+	{{else}}
+		<form method="post" action="/admin/helprecording" enctype="multipart/form-data">
+			Last opp hjelpe-fil (lydopptak): 
+			<input type="file" name="helprecording">
+			<input type="hidden" name="project" value="{{project.name}}">
+			<input type="submit" name="" value="Last opp">
+		</form>
+	{{/if}}
+{{/if}}
+
+{{#if projects}}
+<h2>Dine prosjekter</h2>
+<ul>
+{{#each projects}}
+	<li>
+		<a href="/admin/{{name}}">{{name}}</a>
+	</li>
+{{/each}}
+</ul>
+{{/if}}
+
+<h2>Opprett et nytt prosjekt</h2>
+<form method="post">
+	<span>Navn på prosjektet:</span>
+	<input 
+		name="project_name" 
+		placeholder="Ingen mellomrom eller tegn"
+		required
+		style="min-width: 300px"
+		pattern="[a-zA-Z0-9æøåÆØÅ]+"
+	>
+	<br>
+	<button type="submit" name="">Opprett</button>
+</form>
+
+
+{{else}}
+<!--
+<h1>Registrer deg for "bildefortellinger"</h1>
+<form method="post">
+	<span>E-post:</span>
+	<input 
+		name="email" 
+		placeholder="Din E-postadresse"
+		required
+		type="email" 
+	>
+	<br>
+	<button type="submit" name="">Send</button>
+</form>
+-->
+{{/if}}
