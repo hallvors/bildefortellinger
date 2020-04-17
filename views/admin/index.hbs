@@ -4,7 +4,7 @@
 </h1>
 
 {{#if project}}
-	<h2>Prosjekt: {{project.name}}</h2>
+	<h2>Bildesamling: {{project.name}}</h2>
 	<p>Lenke:
 		<a href="https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN">https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN</a>
 	</p>
@@ -57,7 +57,7 @@
 {{/if}}
 
 {{#if projects}}
-<h2>Dine prosjekter</h2>
+<h2>Dine bildesamlinger</h2>
 <ul>
 {{#each projects}}
 	<li>
@@ -67,9 +67,9 @@
 </ul>
 {{/if}}
 
-<h2>Opprett et nytt prosjekt</h2>
+<h2>Opprett ny bildesamling</h2>
 <form method="post" action="/admin">
-	<span>Navn på prosjektet:</span>
+	<span>Navn på bildesamling:</span>
 	<input 
 		name="new_project_name"
 		placeholder="Ingen mellomrom eller tegn"
