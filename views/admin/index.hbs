@@ -8,6 +8,20 @@
 	<p>Lenke:
 		<a href="https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN">https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN</a>
 	</p>
+	{{#if recordings}}
+		<table>
+			<tr>
+				<th>Elev</th>
+				<th>Opptak</th>
+			</tr>
+			{{#each recordings}}
+				<tr>
+					<td>{{pupil}}</td>
+					<td><a href="{{url}}">{{url}}</a></td>
+				</tr>
+			{{/each}}
+		</table>
+	{{/if}}
 	<div class="admin-images">
 		{{#each project.images}}
 				<span><img src="{{asset.url}}?w=100&fit=max"></span>

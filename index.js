@@ -84,9 +84,10 @@ app.get('/admin/:project?', adminAuth, asyncRouteHandler(async function(req, res
 	if (!req.user) { // should never happen
 		return res.render('admin/message', { layout: admin, message: 'Uventet feil' });
 	}
-	let project;
+	let project, recordings;
 	if (req.params.project) {
 		project = await sClient.getProject(req.params.project);
+		recordings = await sClient.getRecordings(req.params.project);
 	}
 	let projects = await sClient.getProjects(req.user._id);
 	return res.render('admin/index', {
@@ -94,6 +95,7 @@ app.get('/admin/:project?', adminAuth, asyncRouteHandler(async function(req, res
 		user: req.user,
 		projects,
 		project,
+		recordings,
 	})
 }));
 
