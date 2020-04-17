@@ -5,6 +5,9 @@
 
 {{#if project}}
 	<h2>Prosjekt: {{project.name}}</h2>
+	<p>Lenke:
+		<a href="https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN">https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN</a>
+	</p>
 	<div class="admin-images">
 		{{#each project.images}}
 				<span><img src="{{asset.url}}?w=100&fit=max"></span>
@@ -54,7 +57,7 @@
 <form method="post" action="/admin">
 	<span>Navn på prosjektet:</span>
 	<input 
-		name="project_name" 
+		name="new_project_name"
 		placeholder="Ingen mellomrom eller tegn"
 		required
 		style="min-width: 300px"
