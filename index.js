@@ -152,9 +152,10 @@ app.get('/:project?/:name?', asyncRouteHandler(async function(req, res, next) {
 	let images = [];
 	if (req.params.project) {
 		let project = await sClient.getProject(req.params.project);
+		images = project.images.map(image => image.asset.url);
 	}
 	res.render('index', {
-		images: project.images.map(image => image.asset.url),
+		images,
 		name: req.params.name,
 		project: req.params.project,
 	});

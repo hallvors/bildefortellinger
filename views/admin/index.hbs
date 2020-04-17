@@ -51,7 +51,7 @@
 {{/if}}
 
 <h2>Opprett et nytt prosjekt</h2>
-<form method="post">
+<form method="post" action="/admin">
 	<span>Navn på prosjektet:</span>
 	<input 
 		name="project_name" 
@@ -68,7 +68,7 @@
 {{else}}
 <!--
 <h1>Registrer deg for "bildefortellinger"</h1>
-<form method="post">
+<form method="post" action="/admin">
 	<span>E-post:</span>
 	<input 
 		name="email" 
