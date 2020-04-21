@@ -151,15 +151,20 @@ app.post('/admin', adminAuth, async function(req, res, next) {
 });
 
 app.get('/:project?/:name?', asyncRouteHandler(async function(req, res, next) {
-	let images = [];
+	let images = [], helpaudiourl;
 	if (req.params.project) {
 		let project = await sClient.getProject(req.params.project);
+		if (!project) {
+			return next(new Error(404));
+		}
 		if (project.images) {
 			images = project.images.map(image => image.asset.url);
 		}
+		helpaudiourl = project.helprecording ? project.helprecording.asset.url : null;
 	}
 	res.render('index', {
 		images,
+		helpaudiourl,
 		name: req.params.name,
 		project: req.params.project,
 	});
