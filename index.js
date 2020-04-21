@@ -25,34 +25,35 @@ const mp3Handler = upload.single('mp3');
 
 // Some sugar to avoid try/catch in all routes
 const asyncRouteHandler = fn => (req, res, next) => {
-  return Promise.resolve(fn(req, res, next))
-  .catch(next);
+	return Promise.resolve(fn(req, res, next)).catch(next);
 };
-
 
 app.use('/images', express.static('public/images'));
 app.use('/js', express.static('public/js'));
 app.use('/css', express.static('public/css'));
-app.use('/sound', express.static('public/sound'));
 
-app.post('/api/submit', mp3Handler, asyncRouteHandler(async function(req, res, next) {
-	let name =
-		req.get('x-bildefortellinger-name') ||
-		'opptak' + parseInt(Math.random() * 100);
-	let project =
-		req.get('x-bildefortellinger-project') ||
-		'opptak' + parseInt(Math.random() * 100);
+app.post(
+	'/api/submit',
+	mp3Handler,
+	asyncRouteHandler(async function(req, res, next) {
+		let name =
+			req.get('x-bildefortellinger-name') ||
+			'opptak' + parseInt(Math.random() * 100);
+		let project =
+			req.get('x-bildefortellinger-project') ||
+			'opptak' + parseInt(Math.random() * 100);
 
-	sClient.addRecording(project, name, [], req.file.path);
-	res.statusCode = 204;
-	res.end();
-}));
+		sClient.addRecording(project, name, [], req.file.path);
+		res.statusCode = 204;
+		res.end();
+	})
+);
 
 const adminAuth = asyncRouteHandler(async function(req, res, next) {
 	if (!(req.query.t || req.cookies.token)) {
 		return res.render('admin/message', {
 			layout: 'admin',
-			message: 'Ingen tilgang. Bruk tilsendt passord-lenke på nytt.'
+			message: 'Ingen tilgang. Bruk tilsendt passord-lenke på nytt.',
 		});
 	}
 	let token = req.query.t || req.cookies.token;
