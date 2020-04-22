@@ -3,6 +3,19 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var recorder, input, theStream;
 var pupilName, project;
+var meta = [];
+var startTime;
+
+slideshow.onChange = function() {
+	if (startTime) {
+		var elapsed = (new Date).getTime() - startTime.getTime();
+		meta.push({
+			timestamp: elapsed,
+			image: slideshow.currentSlide,
+			_key: parseInt(Math.random() * 1000000);
+		});
+	}
+}
 
 function start() {
 	if (slideshow.currentSlide !== 0 && !recorder) {
@@ -32,6 +45,9 @@ function start() {
 			xhr.onload = function() { alert('Ferdig! Tusen takk :)'); }
 			var fd = new FormData();
 			fd.append('mp3', blob, 'opptak.mp3');
+			fd.append('meta', JSON.stringify(meta));
+			meta = [];
+			startTime = null;
 			xhr.send(fd);
 		}
 
@@ -41,6 +57,7 @@ function start() {
 	      mp3: {bitRate: 160}
 	    });
 
+		startTime = new Date();
 		//start the recording process
 		recorder.startRecording();
 	});
