@@ -29,6 +29,7 @@ const asyncRouteHandler = fn => (req, res, next) => {
 };
 
 app.use('/images', express.static('public/images'));
+app.use('/favicon.png', express.static('public/images/favicon.png'));
 app.use('/js', express.static('public/js'));
 app.use('/css', express.static('public/css'));
 
