@@ -106,6 +106,9 @@ app.get(
 			projects,
 			project,
 			recordings,
+			helpers: {
+				json: obj => JSON.stringify(obj)
+			}
 		});
 	})
 );

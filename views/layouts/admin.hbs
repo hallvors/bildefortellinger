@@ -2,6 +2,7 @@
 <html><head><title>Bildefortellinger - admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="/css/style.css" rel="stylesheet" type="text/css">
+ 	<link rel="icon" type=" image/png" href="/favicon.png" />
 <style>
 html, body {
 	background-color: #ccc;
@@ -21,6 +22,7 @@ h2{
 
 .admin-images {
 	height: initial;
+	overflow: auto;
 }
 
 .admin-images img, .admin-images form {
@@ -28,6 +30,11 @@ h2{
 	height: auto;
 	float: left;
 	border: 4px double #ddd;
+}
+
+.admin-images .highlight-image {
+	border-color: #009;
+	box-shadow: #006 2px 2px;
 }
 
 .admin-images form {
@@ -53,7 +60,15 @@ h2{
 button.icon {
 	font-size: 1.2em;
 }
+
+table {border-collapse: collapse;}
+th, td {
+	border-left: 1px solid #ddd;
+	padding: 5px;
+}
+
 </style>
+<script src="/js/admin.js"></script>
 </head>
 
 <body class="admin">
