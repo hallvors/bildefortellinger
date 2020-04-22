@@ -63,7 +63,7 @@ const adminAuth = asyncRouteHandler(async function(req, res, next) {
 		if (!(data && data.length === 1)) {
 			return res.render('admin/message', {
 				layout: 'admin',
-				message: 'Ingen tilgang. Du må be om å bli registrert på nytt.'
+				message: 'Ingen tilgang. Du må be om å bli registrert på nytt.',
 			});
 		}
 		req.user = data[0];
@@ -71,36 +71,46 @@ const adminAuth = asyncRouteHandler(async function(req, res, next) {
 			res.cookie('token', token);
 		}
 		next();
-	} catch(e) {
+	} catch (e) {
 		return res.render('admin/message', {
 			layout: 'admin',
-			message: 'Ugyldig tilgang. Du må få ny passord-lenke, for denne virker ikke lenger. ' +
-			 ' Eventuelt kan du prøve å starte nettleseren på nytt og klikke lenka en gang til.' +
-			 e
+			message:
+				'Ugyldig tilgang. Du må få ny passord-lenke, for denne virker ikke lenger. ' +
+				' Eventuelt kan du prøve å starte nettleseren på nytt og klikke lenka en gang til.' +
+				e,
 		});
 	}
 });
 
-app.get('/admin/:project?', adminAuth, asyncRouteHandler(async function(req, res, next) {
-	if (!req.user) { // should never happen
-		return res.render('admin/message', { layout: admin, message: 'Uventet feil' });
-	}
-	let project, recordings;
-	if (req.params.project) {
-		project = await sClient.getProject(req.params.project);
-		recordings = await sClient.getRecordings(req.params.project);
-	}
-	let projects = await sClient.getProjects(req.user._id);
-	return res.render('admin/index', {
-		layout: 'admin',
-		user: req.user,
-		projects,
-		project,
-		recordings,
+app.get(
+	'/admin/:project?',
+	adminAuth,
+	asyncRouteHandler(async function(req, res, next) {
+		if (!req.user) {
+			// should never happen
+			return res.render('admin/message', {
+				layout: admin,
+				message: 'Uventet feil',
+			});
+		}
+		let project, recordings;
+		if (req.params.project) {
+			project = await sClient.getProject(req.params.project);
+			recordings = await sClient.getRecordings(req.params.project);
+		}
+		let projects = await sClient.getProjects(req.user._id);
+		return res.render('admin/index', {
+			layout: 'admin',
+			user: req.user,
+			projects,
+			project,
+			recordings,
+		});
 	})
-}));
+);
 
-app.post('/admin/helprecording',
+app.post(
+	'/admin/helprecording',
 	adminAuth,
 	upload.single('helprecording'),
 	asyncRouteHandler(async function(req, res, next) {
@@ -109,7 +119,8 @@ app.post('/admin/helprecording',
 	})
 );
 
-app.post('/admin/image',
+app.post(
+	'/admin/image',
 	adminAuth,
 	upload.single('image'),
 	asyncRouteHandler(async function(req, res, next) {
@@ -119,8 +130,12 @@ app.post('/admin/image',
 );
 
 app.post('/admin', adminAuth, async function(req, res, next) {
-	if (!req.user) { // should never happen
-		return res.render('admin/message', { layout: admin, message: 'Uventet feil' });
+	if (!req.user) {
+		// should never happen
+		return res.render('admin/message', {
+			layout: admin,
+			message: 'Uventet feil',
+		});
 	}
 
 	if (req.body.new_project_name) {
@@ -146,30 +161,40 @@ app.post('/admin', adminAuth, async function(req, res, next) {
 		await sClient.addProject(req.user._id, req.body.new_project_name);
 		res.redirect('/admin/' + req.body.new_project_name);
 	} else if (req.body.delete_recording) {
-		await sClient.removeHelpRecording(req.body.project, req.body.delete_recording)
+		await sClient.removeHelpRecording(
+			req.body.project,
+			req.body.delete_recording
+		);
 		res.redirect('/admin/' + req.body.project);
 	}
 });
 
-app.get('/:project?/:name?', asyncRouteHandler(async function(req, res, next) {
-	let images = [], helpaudiourl;
-	if (req.params.project) {
-		let project = await sClient.getProject(req.params.project);
-		if (!project) {
-			return next(new Error(404));
+app.get(
+	'/:project?/:name?',
+	asyncRouteHandler(async function(req, res, next) {
+		let images = [],
+			helpaudiourl;
+		if (req.params.project) {
+			let project = await sClient.getProject(req.params.project);
+			if (!project) {
+				return next(new Error(404));
+			}
+			if (project.images) {
+				images = project.images.map(image => image.asset.url);
+			}
+			helpaudiourl =
+				project.helprecording && project.helprecording.asset
+					? project.helprecording.asset.url
+					: null;
 		}
-		if (project.images) {
-			images = project.images.map(image => image.asset.url);
-		}
-		helpaudiourl = project.helprecording ? project.helprecording.asset.url : null;
-	}
-	res.render('index', {
-		images,
-		helpaudiourl,
-		name: req.params.name,
-		project: req.params.project,
-	});
-}));
+		res.render('index', {
+			images,
+			helpaudiourl,
+			name: req.params.name,
+			project: req.params.project,
+		});
+	})
+);
 
 const server = require('http').createServer();
 server.on('request', app);
