@@ -12,7 +12,7 @@ slideshow.onChange = function() {
 		meta.push({
 			timestamp: elapsed,
 			image: slideshow.currentSlide,
-			_key: parseInt(Math.random() * 1000000);
+			_key: parseInt(Math.random() * 1000000),
 		});
 	}
 }
