@@ -43,8 +43,8 @@ app.post(
 		let project =
 			req.get('x-bildefortellinger-project') ||
 			'opptak' + parseInt(Math.random() * 100);
-
-		sClient.addRecording(project, name, [], req.file.path);
+		let meta = JSON.parse(req.body.meta);
+		sClient.addRecording(project, name, meta, req.file.path);
 		res.statusCode = 204;
 		res.end();
 	})
