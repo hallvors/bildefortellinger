@@ -47,17 +47,18 @@ h2{
 	display: block;
 }
 
-.admin button, .admin input[type=button] {
+.admin button, .admin input[type=button], .admin .button {
 	border-radius: 10px;
 	box-shadow: 1px 1px #444;
 	padding: 0 10px;
  	transition-duration: 0.4s;
+ 	display: inline-block;
 }
-.admin button:hover, .admin input[type=button]:hover {
+.admin button:hover, .admin input[type=button]:hover, .admin .button:hover {
 	box-shadow: 1px 1px #aaa;
 	background-color: #eee;
 }
-button.icon {
+button.icon, .button.icon {
 	font-size: 1.2em;
 }
 
@@ -65,6 +66,10 @@ table {border-collapse: collapse;}
 th, td {
 	border-left: 1px solid #ddd;
 	padding: 5px;
+}
+
+.rec-actions form {
+	display: inline;
 }
 
 </style>

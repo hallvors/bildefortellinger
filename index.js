@@ -164,10 +164,23 @@ app.post('/admin', adminAuth, async function(req, res, next) {
 		// ready to create project
 		await sClient.addProject(req.user._id, req.body.new_project_name);
 		res.redirect('/admin/' + req.body.new_project_name);
-	} else if (req.body.delete_recording) {
+	} else if (req.body.delete_help_recording) {
 		await sClient.removeHelpRecording(
 			req.body.project,
+			req.body.delete_help_recording
+		);
+		res.redirect('/admin/' + req.body.project);
+	} else if (req.body.delete_recording) {
+		await sClient.deleteRecording(
+			req.body.project,
 			req.body.delete_recording
+		);
+		res.redirect('/admin/' + req.body.project);
+	} else if (req.body.edit_recording_details) {
+		await sClient.editRecordingDetails(
+			req.body.edit_recording_details,
+			req.body.pupil,
+			req.body.comment
 		);
 		res.redirect('/admin/' + req.body.project);
 	}

@@ -43,8 +43,14 @@
 						</audio>
 						<a href="{{ url }}" onclick="return play(this)">▶️</a>
 					</td>
-					<td>
-						<a href="{{ url }}?dl">⬇</a>
+					<td class="rec-actions">
+						<form action="{{ url }}?dl">
+							<button class="icon">⬇</button>
+						</form>
+						<form method="post" action="/admin" onsubmit="return confirm('Vil du virkelig slette?')">
+							<button type="submit" name="delete_recording" value="{{_id}}" class="icon danger"> 🗑️ </button>
+							<input type="hidden" name="project" value="{{../project.name}}">
+						</form>
 					</td>
 				</tr>
 			{{/each}}
@@ -58,7 +64,7 @@
 				src="{{project.helprecording.asset.url}}">
 					<code>audio</code> element støttes ikke.
 			</audio>
-			<button type="submit" name="delete_recording" value="{{project.helprecording.asset._id}}" class="icon"> 🗑️ </button>
+			<button type="submit" name="delete_help_recording" value="{{project.helprecording.asset._id}}" class="icon"> 🗑️ </button>
 			<input type="hidden" name="project" value="{{project.name}}">
 		</form>
 	{{else}}
