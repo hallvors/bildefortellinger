@@ -65,7 +65,6 @@ function highlightImage(event) {
 	var chosenIndex = 0;
 
 	for(var i = currentMeta.times.length - 1; i > -1; i--) {
-		console.log(i, currentTs > currentMeta.times[i]);
 		if (currentTs > currentMeta.times[i]) {
 			chosenIndex = i;
 			break;
