@@ -239,3 +239,16 @@ function classListRemove(strCln, oldCls) {
 	list.splice(list.indexOf(oldCls, 1));
 	return list.join(' ');
 }
+
+function makeLinks(textArea) {
+	var names = textArea.value.split(/\r?\n/g).map(function(name) {
+		if (name.indexOf('\t') > -1) {
+			return name;
+		}
+		return  name + '\t' + (
+				location.href.replace(/\/admin/, '') +
+				'/' +
+				name.replace(/\s+/g, '-'));
+	});
+	textArea.value = names.join('\n');
+}

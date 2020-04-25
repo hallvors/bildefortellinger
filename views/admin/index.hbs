@@ -5,9 +5,6 @@
 
 {{#if project}}
 	<h2>Bildesamling: {{project.name}}</h2>
-	<p>Lenke:
-		<a href="https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN">https://bildefortellinger.herokuapp.com/{{project.name}}/NAVN</a>
-	</p>
 	<div class="admin-images">
 		{{#each project.images}}
 				<span><img src="{{asset.url}}?w=100&fit=max"></span>
@@ -105,6 +102,15 @@
 		</form>
 	{{/if}}
 {{/if}}
+
+<h2>Lag lenker</h2>
+
+<p>For å lage lenker til mange elever, lim inn navn her:</p>
+<form>
+<textarea onchange="makeLinks(this)">
+</textarea>
+</form>
+
 
 {{#if projects}}
 <h2>Dine bildesamlinger</h2>
