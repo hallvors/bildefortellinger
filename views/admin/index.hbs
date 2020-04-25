@@ -29,16 +29,30 @@
 				<tr>
 					<th>Elev</th>
 					<th>Kommentar</th>
-					<th>Opptak</th>
 					<th>Handlinger</th>
 				</tr>
 			</thead>
-			<tbody class="scrollme">
+			<tbody>
 			{{#each recordings}}
 				<tr>
-					<td>{{pupil}}</td>
-					<td>{{comment}}</td>
 					<td>
+						<input
+						disabled
+						name="pupil"
+						value="{{pupil}}"
+						id="{{_id}}-pupil"
+					>
+					</td>
+					<td>
+						<textarea
+							disabled
+							name="comment"
+							cols="20"
+							rows="3"
+							id="{{_id}}-comment"
+						>{{comment}}</textarea>
+					</td>
+					<td class="rec-actions">
 						<audio 
 							src="{{ url }}"
 							data-meta="{{ json meta }}" 
@@ -47,15 +61,22 @@
 							Avspilling som markerer hvilket bilde som ses, støttes ikke.
 							<a href="{{ url }}">▶️</a>
 						</audio>
-						<a href="{{ url }}" onclick="return play(this)">▶️</a>
-					</td>
-					<td class="rec-actions">
+						<a href="{{ url }}" onclick="return play(this)" class="button">▶️</a>
 						<form action="{{ url }}?dl">
 							<button class="icon">⬇</button>
 						</form>
-						<form method="post" action="/admin" onsubmit="return confirm('Vil du virkelig slette?')" data-jsform data-dangerous>
-							<button type="submit" name="delete_recording" value="{{_id}}" class="icon"> 🗑️ </button>
+						<form method="post" action="/admin" data-jsform data-danger>
+							<button type="submit" name="delete_recording" value="{{_id}}" class="icon">🗑️</button>
 							<input type="hidden" name="project" value="{{../project.name}}">
+						</form>
+						<form method="post" action="/admin"
+							id="{{_id}}-form"
+							data-jsform data-triggeredit
+							data-elements="{{_id}}-comment, {{_id}}-pupil"
+						>
+							<input type="hidden" name="edit_recording_details" value="{{_id}}">
+							<input type="hidden" name="project" value="{{../project.name}}">
+							<button class="icon">✎</button>
 						</form>
 					</td>
 				</tr>
