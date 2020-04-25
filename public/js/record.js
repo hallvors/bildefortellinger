@@ -22,6 +22,7 @@ function start() {
 		// let's make sure they start first recording looking at first picture..
 		slideshow.goTo(0);
 	}
+	meta.push({timestamp:0, image: slideshow.currentSlide});
 	navigator.mediaDevices.getUserMedia({audio: true}).then(function(stream) {
 		theStream = stream;
 		var audioContext = new AudioContext();

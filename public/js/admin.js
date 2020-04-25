@@ -7,12 +7,14 @@ function play(link) {
 		stop();
 		return false;
 	}
-	console.log(link);
 	var file = link.href;
 	for(var elms = document.getElementsByTagName('audio'), i = 0, el; el = elms[i]; i++) {
 		if (el.src === link.href) {
 			currentAudio = el;
 			currentMeta = JSON.parse(el.getAttribute('data-meta'));
+			var times = currentMeta.map(function(meta) {return meta.timestamp;});
+			var images = currentMeta.map(function(meta) {return meta.image;});
+			currentMeta = {times: times, images: images};
 			break;
 		}
 	}
@@ -50,25 +52,35 @@ function stop() {
 }
 
 function highlightImage(event) {
-	if (!(currentMeta && currentMeta.length)) {
+	if (!(currentMeta && currentMeta.times.length)) {
 		return;
 	}
-	var current = event.target.currentTime;
 
 	if (!adminImages.length) {
 		return;
 	}
 
+	var currentTs = parseInt(event.target.currentTime * 1000);
 	var curImg = document.getElementsByClassName('highlight-image')[0];
-	var items = currentMeta.filter(function(meta){
-		return meta.timestamp <= (current * 1000)
-	});
-	console.log( (current * 1000) + ': highlight image ' + items.length, currentMeta)
-	if (!items.length) {
-		return;
+	var chosenIndex = 0;
+
+	for(var i = currentMeta.times.length - 1; i > -1; i--) {
+		console.log(i, currentTs > currentMeta.times[i]);
+		if (currentTs > currentMeta.times[i]) {
+			chosenIndex = i;
+			break;
+		}
 	}
-	if (curImg !== adminImages[items.length]) {
-		curImg.className = '';
-		adminImages[items.length].className = 'highlight-image';
+
+	var imgIdx = currentMeta.images[chosenIndex];
+	// maybe admin images have changed since the recording..
+	if (!adminImages[imgIdx]) {
+		imgIdx = adminImages.length - 1;
+	}
+	if (adminImages[imgIdx] !== curImg) {
+		if (curImg) {
+			curImg.className = '';
+		}
+		adminImages[imgIdx].className = 'highlight-image';
 	}
 }

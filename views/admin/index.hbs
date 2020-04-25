@@ -23,15 +23,21 @@
 	<span class="clearfix"></span>
 
 	{{#if recordings}}
+		<div class="scrollme">
 		<table>
-			<tr>
-				<th>Elev</th>
-				<th>Opptak</th>
-				<th>Last ned</th>
-			</tr>
+			<thead>
+				<tr>
+					<th>Elev</th>
+					<th>Kommentar</th>
+					<th>Opptak</th>
+					<th>Handlinger</th>
+				</tr>
+			</thead>
+			<tbody class="scrollme">
 			{{#each recordings}}
 				<tr>
 					<td>{{pupil}}</td>
+					<td>{{comment}}</td>
 					<td>
 						<audio 
 							src="{{ url }}"
@@ -47,14 +53,16 @@
 						<form action="{{ url }}?dl">
 							<button class="icon">⬇</button>
 						</form>
-						<form method="post" action="/admin" onsubmit="return confirm('Vil du virkelig slette?')">
-							<button type="submit" name="delete_recording" value="{{_id}}" class="icon danger"> 🗑️ </button>
+						<form method="post" action="/admin" onsubmit="return confirm('Vil du virkelig slette?')" data-jsform data-dangerous>
+							<button type="submit" name="delete_recording" value="{{_id}}" class="icon"> 🗑️ </button>
 							<input type="hidden" name="project" value="{{../project.name}}">
 						</form>
 					</td>
 				</tr>
 			{{/each}}
+			</tbody>
 		</table>
+		</div>
 	{{/if}}
 	<h3>Hjelpelydfil</h3>
 	{{#if project.helprecording}}

@@ -15,6 +15,11 @@ export default {
       type: "string",
     },
     {
+      title: "Kommentar",
+      name: "comment",
+      type: "string",
+    },
+    {
       title: "Opptak",
       name: "recording",
       type: "file"
