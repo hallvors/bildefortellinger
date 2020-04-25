@@ -241,14 +241,44 @@ function classListRemove(strCln, oldCls) {
 }
 
 function makeLinks(textArea) {
+	var links = document.getElementById('links');
 	var names = textArea.value.split(/\r?\n/g).map(function(name) {
 		if (name.indexOf('\t') > -1) {
-			return name;
+			name = name.split('\t')[0];
 		}
-		return  name + '\t' + (
-				location.href.replace(/\/admin/, '') +
-				'/' +
-				name.replace(/\s+/g, '-'));
+		var link = location.href.replace(/\/admin/, '') +
+			'/' +
+			name.replace(/\s+/g, '-');
+		return {
+			html: '<li><a href="' + link + '">' + name +
+				'</a></li>',
+			tsv: name + '\t' + link,
+		}
 	});
-	textArea.value = names.join('\n');
+
+	textArea.value = names.map(function(obj) {return obj.tsv}).join('\n');
+	links.innerHTML = '<ul>' +
+		names.map(function(obj) {return obj.html}).join('\n') +
+		'</ul>';
 }
+function selectText(id) {
+    var node = document.getElementById(id);
+    return function() {
+	    if (document.body.createTextRange) {
+	        const range = document.body.createTextRange();
+	        range.moveToElementText(node);
+	        range.select();
+	    } else if (window.getSelection) {
+	        const selection = window.getSelection();
+	        const range = document.createRange();
+	        range.selectNodeContents(node);
+	        selection.removeAllRanges();
+	        selection.addRange(range);
+	    } else {
+	        console.warn("Could not select text in node: Unsupported browser.");
+	    }
+    }
+}
+addEventListener('load', function() {
+	document.getElementById('links').addEventListener('click', selectText('links'), false);
+}, false);

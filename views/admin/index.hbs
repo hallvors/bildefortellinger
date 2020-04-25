@@ -98,7 +98,7 @@
 			Last opp hjelpe-fil (lydopptak): 
 			<input type="file" name="helprecording">
 			<input type="hidden" name="project" value="{{project.name}}">
-			<input type="submit" name="" value="Last opp">
+			<input type="submit" class="button" name="" value="Last opp">
 		</form>
 	{{/if}}
 {{/if}}
@@ -109,7 +109,8 @@
 <form>
 <textarea onchange="makeLinks(this)">
 </textarea>
-<input type="button" value="lag lenker">
+<input type="button" value="lag lenker" onclick="makeLinks(this.form.elements[0])">
+<div id="links"><ul></ul></div>
 </form>
 
 
