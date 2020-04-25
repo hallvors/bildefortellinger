@@ -37,6 +37,7 @@ function stop() {
 			el.firstChild.textContent = '▶️';
 		}
 	}
+	currentAudio.pause();
 	currentAudio.removeEventListener('timeupdate', highlightImage, false);
 	currentAudio.removeEventListener('ended', stop, false);
 
