@@ -101,18 +101,18 @@
 			<input type="submit" class="button" name="" value="Last opp">
 		</form>
 	{{/if}}
+
+	<h2>Lag lenker</h2>
+
+	<p>For å lage lenker til mange elever, lim inn navn her:</p>
+	<form>
+	<textarea onchange="makeLinks(this)">
+	</textarea>
+	<input type="button" value="lag lenker" onclick="makeLinks(this.form.elements[0])">
+	<div id="links"><ul></ul></div>
+	</form>
+
 {{/if}}
-
-<h2>Lag lenker</h2>
-
-<p>For å lage lenker til mange elever, lim inn navn her:</p>
-<form>
-<textarea onchange="makeLinks(this)">
-</textarea>
-<input type="button" value="lag lenker" onclick="makeLinks(this.form.elements[0])">
-<div id="links"><ul></ul></div>
-</form>
-
 
 {{#if projects}}
 <h2>Dine bildesamlinger</h2>
