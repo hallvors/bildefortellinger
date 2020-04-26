@@ -14,7 +14,9 @@
 			Nytt bilde<br>(NB: bør lastes opp i riktig rekkefølge): 
 			<br>
 			<input type="file" name="image" onchange="this.form.submit()">
-			<input type="hidden" name="project" value="{{project.name}}">
+			<!-- Note: this input's value is used by otherwise un-related 
+				scripts to check project name.. -->
+			<input type="hidden" id="project" name="project" value="{{project.name}}">
 		</form>
 	</div>
 	<span class="clearfix"></span>
@@ -99,6 +101,7 @@
 			<input type="file" name="helprecording">
 			<input type="hidden" name="project" value="{{project.name}}">
 			<input type="submit" class="button" name="" value="Last opp">
+			<br>..eller ta opp nå: <button type="button" id="helprecordbtn"></button>
 		</form>
 	{{/if}}
 
