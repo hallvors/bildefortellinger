@@ -13,6 +13,11 @@
 <input type="hidden" value="{{project}}" id="project">
 {{/if}}
 <nav id="toolbar"></nav>
+<nav id="rec-toolbar">
+	<button id="waste-btn"><img src="/images/kast.png" alt="Avbryt opptak"></button>
+	<span id="state-indicator"></span>
+	<button id="send-btn"><img src="/images/send.png" alt="Send opptak til lærer"></button>
+</nav>
 {{#if helpaudiourl}}
 <audio src="{{helpaudiourl}}" id="help-audio"></audio>
 {{/if}}

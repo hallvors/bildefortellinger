@@ -15,18 +15,78 @@ img {
 	width: auto;
 }
 
-#toolbar {
+#toolbar, #rec-toolbar {
 	width: 100%;
 	position: absolute;
 	background: #ccc;
 	bottom: 0;
 	text-align: center;
 	z-index: 10;
+	vertical-align: bottom;
+	display: flex;
+	justify-content: space-between;
 }
 
-#toolbar button {
+#toolbar button, #rec-toolbar button, #rec-toolbar>span {
 	font-size: 3em;
+	background-color: transparent;
+    width: 90px;
+    height: 60px;
+    vertical-align: bottom;
+    flex: 2;
 }
+
+@keyframes fadeIn { 
+  from { opacity: 0; } 
+}
+
+#rec-toolbar {
+	display: none;
+}
+
+.recording #rec-toolbar, .sending #rec-toolbar {
+	display: block;
+}
+
+.sending #send-btn, .sending #waste-btn {
+	display: none;
+}
+
+.rec-btn {
+	background-image: url(/images/rec.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+#state-indicator {
+	display: inline-block;
+	width: 90px;
+	height: 110%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-size: contain;
+    animation: fadeIn 1s infinite alternate;
+}
+
+.recording #state-indicator {
+	background-image: url(/images/rec.png);
+}
+
+.sending #state-indicator {
+	background-image: url(/images/send.png);
+}
+
+#toolbar .prev-btn, #toolbar .next-btn {
+	position: fixed;
+	height: 100%;
+	top: 0;
+	color: #fff;
+	text-shadow: 2px;
+}
+#toolbar .prev-btn {left: 0;}
+#toolbar .next-btn {right: 0;}
 
 @media only screen and (max-width: 600px) {
 	#toolbar button {

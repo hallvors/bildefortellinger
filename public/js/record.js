@@ -43,7 +43,11 @@ function start() {
 			if (project) {
 				xhr.setRequestHeader('X-bildefortellinger-project', project)
 			}
-			xhr.onload = function() { alert('Ferdig! Tusen takk :)'); }
+			xhr.onload = function() {
+				document.body.className = '';
+				document.getElementById('state-indicator').src = '/images/rec.png';
+				alert('Ferdig! Opptaket er sendt til lærer. Tusen takk :)');
+			}
 			var fd = new FormData();
 			fd.append('mp3', blob, 'opptak.mp3');
 			fd.append('meta', JSON.stringify(meta));
@@ -64,6 +68,14 @@ function start() {
 	});
 }
 
+function cancel() {
+	if (recorder) {
+		recorder.cancelRecording();
+		document.body.className = '';
+		meta = [];
+	}
+}
+
 function stop() {
 	if (recorder) {
 		theStream.getAudioTracks()[0].stop();
@@ -74,16 +86,19 @@ function stop() {
 function toggle(e) {
 	if (recorder && recorder.isRecording()) {
 		stop();
-		e.target.textContent = ' 🔴 ';
+		document.body.className = 'sending';
 	} else {
 		start();
-		e.target.textContent = ' ⏹️ ';
+		document.body.className = 'recording';
 	}
 }
 
 addEventListener('DOMContentLoaded', function(){
 	var btn = document.createElement('button');
 	document.getElementById('toolbar').appendChild(btn);
+	btn.className = 'rec-btn';
 	btn.onclick = toggle;
-	btn.appendChild(document.createTextNode(' 🔴 '));
+	btn.appendChild(document.createTextNode('  '));
+	document.getElementById('waste-btn').onclick = cancel;
+	document.getElementById('send-btn').onclick = toggle;
 }, false);

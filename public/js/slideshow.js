@@ -22,9 +22,11 @@ addEventListener('DOMContentLoaded', function(e) {
 	var btn = document.createElement('button');
 	document.getElementById('toolbar').appendChild(btn);
 	btn.onclick = previous;
+	btn.className = 'prev-btn';
 	btn.appendChild(document.createTextNode(' << '));
 	btn = document.createElement('button');
 	document.getElementById('toolbar').appendChild(btn);
 	btn.onclick = next;
+	btn.className = 'next-btn';
 	btn.appendChild(document.createTextNode(' >> '));
 }, false);
