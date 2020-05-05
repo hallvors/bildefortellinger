@@ -20,6 +20,15 @@ app.use(cookieParser());
 app.engine('.hbs', exphbs({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
+// https!
+app.use((req, res, next) => {
+	if (req.hostname !== 'localhost') {
+		if (!req.secure) {
+			res.redirect('https://' + req.hostname + req.originalUrl);
+		}
+	}
+});
+
 const upload = multer({ dest: __dirname + '/submits' });
 const mp3Handler = upload.single('mp3');
 
