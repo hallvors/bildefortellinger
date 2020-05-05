@@ -88,6 +88,10 @@ img {
 #toolbar .prev-btn {left: 0;}
 #toolbar .next-btn {right: 0;}
 
+#toolbar .infobtn, #toolbar .rec-btn {
+	z-index: 22; /* above prev/next? */
+}
+
 @media only screen and (max-width: 600px) {
 	#toolbar button {
 		font-size: 1.8em;
