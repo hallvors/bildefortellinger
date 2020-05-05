@@ -25,7 +25,7 @@ app.set('trust proxy', true);
 app.use((req, res, next) => {
 	if (req.hostname !== 'localhost') {
 		if (!req.secure) {
-			res.redirect('https://' + req.hostname + req.originalUrl);
+			return res.redirect('https://' + req.hostname + req.originalUrl);
 		}
 	}
 	next();
