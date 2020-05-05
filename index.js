@@ -19,6 +19,7 @@ app.use(cookieParser());
 
 app.engine('.hbs', exphbs({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
+app.set('trust proxy', true);
 
 // https!
 app.use((req, res, next) => {
