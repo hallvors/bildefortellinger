@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 			res.redirect('https://' + req.hostname + req.originalUrl);
 		}
 	}
+	next();
 });
 
 const upload = multer({ dest: __dirname + '/submits' });
