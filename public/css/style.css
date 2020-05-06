@@ -84,6 +84,7 @@ img {
 	top: 0;
 	color: #fff;
 	text-shadow: 2px;
+	border: none;
 }
 #toolbar .prev-btn {left: 0;}
 #toolbar .next-btn {right: 0;}
@@ -94,7 +95,7 @@ img {
 
 @media only screen and (max-width: 600px) {
 	#toolbar button {
-		font-size: 1.8em;
+		font-size: 0.8em;
 	}
 }
 
