@@ -35,8 +35,10 @@ function start() {
 	});
 }
 
-function stop() {
-	document.getElementById('helprecordbtn').className = 'loading';
+function stopRec() {
+	if (document.getElementById('helprecordbtn')) {
+		document.getElementById('helprecordbtn').className = 'loading';
+	}
 	if (recorder) {
 		theStream.getAudioTracks()[0].stop();
 		recorder.finishRecording();
@@ -45,7 +47,7 @@ function stop() {
 
 function toggle(e) {
 	if (recorder && recorder.isRecording()) {
-		stop();
+		stopRec();
 		e.target.textContent = ' 🔴 ';
 	} else {
 		start();
