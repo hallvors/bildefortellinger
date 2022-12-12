@@ -13,7 +13,7 @@
     "@sanity/client": "^1.149.7",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-handlebars": "^4.0.2",
     "glob": "^7.1.6",
     "jsonwebtoken": "^8.5.1",
